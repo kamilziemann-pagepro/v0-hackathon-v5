@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity"
+import { client } from "@/lib/sanity";
 import {
   navbarQuery,
   heroQuery,
@@ -11,19 +11,26 @@ import {
   whoWeServeQuery,
   ecosystemQuery,
   footerQuery,
-} from "@/lib/queries"
+} from "@/lib/queries";
 
-import Navbar from "@/components/navbar"
-import HeroSection from "@/components/hero-section"
-import SearchSection from "@/components/search-section"
-import DataTrustSection from "@/components/data-trust-section"
-import StatisticsSection from "@/components/statistics-section"
-import HowItWorksSection from "@/components/how-it-works-section"
-import DataProcessingSection from "@/components/data-processing-section"
-import OurEdgeSection from "@/components/our-edge-section"
-import WhoWeServeSection from "@/components/who-we-serve-section"
-import EcosystemSection from "@/components/ecosystem-section"
-import Footer from "@/components/footer"
+import Navbar from "@/components/navbar";
+import HeroSection from "@/components/hero-section";
+import SearchSection from "@/components/search-section";
+import DataTrustSection from "@/components/data-trust-section";
+import StatisticsSection from "@/components/statistics-section";
+import HowItWorksSection from "@/components/how-it-works-section";
+import DataProcessingSection from "@/components/data-processing-section";
+import OurEdgeSection from "@/components/our-edge-section";
+import WhoWeServeSection from "@/components/who-we-serve-section";
+import EcosystemSection from "@/components/ecosystem-section";
+import Footer from "@/components/footer";
+
+const fetchWithoutCache = async (query: string) => {
+  return client.fetch(query, {}, { cache: "no-store" });
+};
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function Home() {
   // Fetch all data in parallel
@@ -40,18 +47,18 @@ export default async function Home() {
     ecosystemData,
     footerData,
   ] = await Promise.all([
-    client.fetch(navbarQuery),
-    client.fetch(heroQuery),
-    client.fetch(searchQuery),
-    client.fetch(dataTrustQuery),
-    client.fetch(statisticsQuery),
-    client.fetch(howItWorksQuery),
-    client.fetch(dataProcessingQuery),
-    client.fetch(ourEdgeQuery),
-    client.fetch(whoWeServeQuery),
-    client.fetch(ecosystemQuery),
-    client.fetch(footerQuery),
-  ])
+    fetchWithoutCache(navbarQuery),
+    fetchWithoutCache(heroQuery),
+    fetchWithoutCache(searchQuery),
+    fetchWithoutCache(dataTrustQuery),
+    fetchWithoutCache(statisticsQuery),
+    fetchWithoutCache(howItWorksQuery),
+    fetchWithoutCache(dataProcessingQuery),
+    fetchWithoutCache(ourEdgeQuery),
+    fetchWithoutCache(whoWeServeQuery),
+    fetchWithoutCache(ecosystemQuery),
+    fetchWithoutCache(footerQuery),
+  ]);
 
   return (
     <main className="min-h-screen">
@@ -67,5 +74,5 @@ export default async function Home() {
       <EcosystemSection data={ecosystemData} />
       <Footer data={footerData} />
     </main>
-  )
+  );
 }
