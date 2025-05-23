@@ -16,7 +16,7 @@ export default function Navbar({ data }: { data: any }) {
                 // src={urlFor(data.logo).url() || "/placeholder.svg?height=40&width=243&query=wealth%20data%20box%20logo"}
                 src={"/placeholder.svg"}
                 alt={data.logo.alt || "Wealth Data Box Logo"}
-                width={243}
+                width={40}
                 height={40}
                 priority
               />
